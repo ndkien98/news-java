@@ -1,11 +1,10 @@
 package com.t3h.news.controller;
 
 import com.t3h.news.model.NewsModel;
+import com.t3h.news.model.request.InsertNewsRequest;
 import com.t3h.news.service.INewsService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,11 @@ public class NewsController {
     public ResponseEntity<List<NewsModel>> getList(){
         return ResponseEntity.ok(iNewsService.getList());
     }
+
+    @PostMapping
+    public ResponseEntity<?> insert(@RequestBody InsertNewsRequest insertNewsRequest){
+        return ResponseEntity.ok(iNewsService.insert(insertNewsRequest));
+    }
+
 
 }

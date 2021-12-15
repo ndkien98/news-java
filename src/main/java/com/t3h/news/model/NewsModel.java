@@ -10,7 +10,7 @@ public class NewsModel extends BaseModel {
 
     private String author;
 
-    private String categoryId;
+    private int categoryId;
 
     private String originalResource;
 
@@ -50,11 +50,11 @@ public class NewsModel extends BaseModel {
         this.author = author;
     }
 
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
