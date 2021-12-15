@@ -1,0 +1,16 @@
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (1, 'BÓNG ĐÁ', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (2, 'THẾ GIỚI', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (3, 'PHÁP LUẬT', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (4, 'KINH DOANH', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (5, 'THỊ TRƯỜNG', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (6, 'SỨC KHỎE', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (7, 'VIDEO', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (8, 'GIẢI TRÍ', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (9, 'ẨM THỰC', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (10, 'XEM LỊCH', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (11, 'SỐ LIỆU COVID 19', null);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (12, 'Lịch thi đấu', 1);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (13, 'Video', 1);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (14, 'Lịch thi đấu hôm nay', 1);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (15, 'Bóng đá đức - Bundesliga', 1);
+INSERT INTO `24h`.category (id, name, parentsCategoryId) VALUES (16, 'AFF CUP 2021', 1);
