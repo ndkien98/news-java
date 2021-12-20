@@ -12,7 +12,7 @@ public abstract class GenericDaoImpl<T> implements IGenericDAO<T> {
     public Connection getConnection() {
         String url = "jdbc:mysql://localhost:3306/24h";
         String user = "root";
-        String password = "root";
+        String password = "1234";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, user, password);
