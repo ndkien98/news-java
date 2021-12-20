@@ -3,11 +3,10 @@ package com.t3h.news.dao.impl;
 import com.t3h.news.dao.INewsDao;
 import com.t3h.news.mapper.NewsMapper;
 import com.t3h.news.model.NewsModel;
-import com.t3h.news.model.request.InsertNewsRequest;
+import com.t3h.news.model.request.NewsRequest;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -18,7 +17,7 @@ public class INewsDaoImpl extends GenericDaoImpl<NewsModel> implements INewsDao 
         return getList(sql,new NewsMapper());
     }
 
-    public int insert(InsertNewsRequest insertNewsRequest){
+    public int insert(NewsRequest newsRequest){
         String sql = "insert into news(title," +
                 "content," +
                 "avatar," +
@@ -27,19 +26,25 @@ public class INewsDaoImpl extends GenericDaoImpl<NewsModel> implements INewsDao 
                 "originalResource,numberAccess,censor,createDate,updateDate) " +
                 "values (?,?,?,?,?,?,?,?,?,?)";
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        insert(sql,insertNewsRequest.getTitle(),
-                insertNewsRequest.getContent(),
-                insertNewsRequest.getAvatar(),
-                insertNewsRequest.getAuthor(),
-                insertNewsRequest.getCategoryId(),
-                insertNewsRequest.getOriginalResource(),
-                insertNewsRequest.getNumberAccess(),
-                insertNewsRequest.getCensor(),
+        insert(sql, newsRequest.getTitle(),
+                newsRequest.getContent(),
+                newsRequest.getAvatar(),
+                newsRequest.getAuthor(),
+                newsRequest.getCategoryId(),
+                newsRequest.getOriginalResource(),
+                newsRequest.getNumberAccess(),
+                newsRequest.getCensor(),
                 currentTime,
                 currentTime
                 );
         return 0;
     }
+
+    public List<NewsModel> findByProperties(int numberAccess,int  censor){
+        String sql = "select * from news where numberAccess = ? and censor = ? ";
+        return findByProperties(sql,new NewsMapper(),numberAccess,censor);
+    }
+
 
 
 }

@@ -1,7 +1,7 @@
 package com.t3h.news.controller;
 
 import com.t3h.news.model.NewsModel;
-import com.t3h.news.model.request.InsertNewsRequest;
+import com.t3h.news.model.request.NewsRequest;
 import com.t3h.news.service.INewsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +24,13 @@ public class NewsController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insert(@RequestBody InsertNewsRequest insertNewsRequest){
-        return ResponseEntity.ok(iNewsService.insert(insertNewsRequest));
+    public ResponseEntity<?> insert(@RequestBody NewsRequest newsRequest){
+        return ResponseEntity.ok(iNewsService.insert(newsRequest));
     }
 
+    @GetMapping("/properties")
+    public ResponseEntity<?> findByProperties(@RequestParam int numberAccess,@RequestParam int censor){
+        return ResponseEntity.ok(iNewsService.findByProperties(numberAccess,censor));
+    }
 
 }

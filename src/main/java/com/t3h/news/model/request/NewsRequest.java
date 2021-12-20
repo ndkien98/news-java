@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class InsertNewsRequest {
+public class NewsRequest {
 
     private int id;
 

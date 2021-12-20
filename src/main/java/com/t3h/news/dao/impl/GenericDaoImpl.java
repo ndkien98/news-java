@@ -70,6 +70,37 @@ public abstract class GenericDaoImpl<T> implements IGenericDAO<T> {
         }
     }
 
+
+    @Override
+    public List<T> findByProperties(String sql, IRowMapper<T> iRowMapper, Object... parameters) {
+
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+
+        ResultSet resultSetDatabase = null;
+        List<T> result = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            this.setParameter(preparedStatement,parameters);
+            resultSetDatabase = preparedStatement.executeQuery();
+
+            while (resultSetDatabase.next()){
+                T t = iRowMapper.map(resultSetDatabase);
+                result.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            this.closeConnection(connection);
+            assert preparedStatement != null;
+            this.closePreparedStatement(preparedStatement);
+        }
+
+        return result;
+    }
+
+
+
     public void closeConnection(Connection connection){
         try {
             connection.close();
