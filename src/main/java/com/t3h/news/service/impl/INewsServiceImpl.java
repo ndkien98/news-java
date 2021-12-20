@@ -23,15 +23,7 @@ public class INewsServiceImpl implements INewsService {
 
     @Override
     public NewsModel insert(InsertNewsRequest insertNewsRequest) {
-        int newsId = iNewsDao.insert(insertNewsRequest);
-
-        NewsModel newsModelResponse = null;
-        for (NewsModel newsModel:this.getList()
-             ) {
-            if (newsModel.getId() == newsId){
-                newsModelResponse = newsModel;
-            }
-        }
-        return newsModelResponse;
+        iNewsDao.insert(insertNewsRequest);
+        return null;
     }
 }

@@ -41,30 +41,76 @@ public abstract class GenericDaoImpl<T> implements IGenericDAO<T> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            this.rollback(connection);
         }finally {
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
+           this.closeConnection(connection);
+            assert preparedStatement != null;
+            this.closePreparedStatement(preparedStatement);
         }
-
         return resultSet;
     }
 
     @Override
-    public void insert(T t, Object... parameters) {
+    public void insert(String sql, Object... parameters) {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            connection.setAutoCommit(false);
+            preparedStatement  = connection.prepareStatement(sql);
+            this.setParameter(preparedStatement,parameters);
+            preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            this.rollback(connection);
+        }finally {
+            this.closeConnection(connection);
+            assert preparedStatement != null;
+            this.closePreparedStatement(preparedStatement);
+        }
+    }
+
+    public void closeConnection(Connection connection){
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rollback(Connection connection){
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closePreparedStatement(PreparedStatement preparedStatement){
+        try {
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setParameter(PreparedStatement preparedStatement,Object... parameters) throws SQLException {
+        for (int i = 0; i < parameters.length; i++) {
+            int index = i + 1;
+            if (parameters[i] instanceof String){
+                preparedStatement.setString(index, (String) parameters[i]);
+            }else if (parameters[i] instanceof Integer){
+                preparedStatement.setInt(index, (Integer) parameters[i]);
+            }else if (parameters[i] instanceof Float){
+                preparedStatement.setFloat(index, (Float) parameters[i]);
+            }else if (parameters[i] instanceof Long){
+                preparedStatement.setLong(index, (Long) parameters[i]);
+            }else if (parameters[i] instanceof Boolean){
+                preparedStatement.setBoolean(index, (Boolean) parameters[i]);
+            }else if (parameters[i] instanceof Timestamp){
+                preparedStatement.setTimestamp(index, (Timestamp) parameters[i]);
+            }
+        }
 
     }
 
